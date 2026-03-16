@@ -1,0 +1,61 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/exit-this-page/macro.njk" import govukExitThisPage %}
+
+
+{% extends "template.njk" %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">View and filter tasks</h1>
+
+  <form method="GET" action="/tasks" class="govuk-!-margin-bottom-6">
+    {{ govukInput({
+      label: {
+        text: "Please enter a task ID:"
+      },
+      id: "id",
+      name: "id",
+      value: searchId
+    }) }}
+
+    {{ govukButton({
+      text: "Filter by task ID",
+      classes: "govuk-button--secondary"
+    }) }}
+
+  </form>
+
+  {% if error %}
+    <p class="govuk-error-message">
+      <span class="govuk-visually-hidden">Error:</span> {{ error }}
+    </p>
+  {% endif %}
+
+  {% if tasks and tasks.length > 0 %}
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Task ID</th>
+          <th scope="col" class="govuk-table__header">Title</th>
+          <th scope="col" class="govuk-table__header">Description</th>
+          <th scope="col" class="govuk-table__header">Status</th>
+          <th scope="col" class="govuk-table__header">Due Date</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        {% for task in tasks %}
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">{{ task.id }}</td>
+            <td class="govuk-table__cell">{{ task.title }}</td>
+            <td class="govuk-table__cell">{{ task.description }}</td>
+            <td class="govuk-table__cell">{{ task.status }}</td>
+            <td class="govuk-table__cell">{{ task.dueDateTime }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="govuk-body">No tasks found.</p>
+  {% endif %}
+  {{ govukExitThisPage() }}
+{% endblock %}

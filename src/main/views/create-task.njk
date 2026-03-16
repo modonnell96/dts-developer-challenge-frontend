@@ -1,0 +1,92 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/exit-this-page/macro.njk" import govukExitThisPage %}
+
+
+{% extends "template.njk" %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">Create task</h1>
+
+  <form method="POST" action="/tasks/create" class="form-task">
+
+    {{ govukInput({
+      name: "title",
+      id: "task-title",
+      label: {
+        text: "Provide a task title"
+      },
+      attributes: {
+        required: "true"
+      }
+    }) }}
+
+    {{ govukInput({
+      name: "description",
+      id: "task-description",
+      label: {
+        text: "Provide a description of the task"
+      }
+    }) }}
+
+    {{ govukSelect({
+      name: "status",
+      id: "task-status",
+      label: {
+        text: "Select a task status"
+      },
+      items: [
+        {
+          value: "TODO",
+          text: "To do"
+        },
+        {
+          value: "IN_PROGRESS",
+          text: "In progress"
+        },
+        {
+          value: "DONE",
+          text: "Done"
+        }
+      ]
+    }) }}
+
+    {{ govukDateInput({
+      id: "task-due-date",
+      namePrefix: "dueDate",
+      fieldset: {
+        legend: {
+          text: "Provide a due date for the task"
+        }
+      },
+      hint: {
+        text: "For example, 01 01 2026"
+      },
+      items: [
+        {
+          name: "day",
+          classes: "govuk-input--width-2",
+          attributes: { required: "true" }
+        },
+        {
+          name: "month",
+          classes: "govuk-input--width-2",
+          attributes: { required: "true" }
+        },
+        {
+          name: "year",
+          classes: "govuk-input--width-4",
+          attributes: { required: "true" }
+        }
+      ]
+    }) }}
+
+    {{ govukButton({
+      text: "Create task"
+    }) }}
+
+  </form>
+  {{ govukExitThisPage() }}
+{% endblock %}

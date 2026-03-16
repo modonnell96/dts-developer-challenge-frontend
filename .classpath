@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path=".yarn/unplugged/detox-npm-12.11.3-df7e0dff0c/node_modules/detox/android/detox/src/androidTest/java"/>
+	<classpathentry kind="src" path=".yarn/unplugged/detox-npm-12.11.3-df7e0dff0c/node_modules/detox/android/detox/src/main/java"/>
+	<classpathentry kind="lib" path=".yarn/unplugged/detox-npm-12.11.3-df7e0dff0c/node_modules/detox/android/gradle/wrapper/gradle-wrapper.jar"/>
+	<classpathentry kind="lib" path=".yarn/unplugged/detox-npm-12.11.3-df7e0dff0c/node_modules/detox/Detox-android/com/wix/detox/12.11.3/detox-12.11.3-javadoc.jar"/>
+	<classpathentry kind="lib" path=".yarn/unplugged/detox-npm-12.11.3-df7e0dff0c/node_modules/detox/Detox-android/com/wix/detox/12.11.3/detox-12.11.3-sources.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

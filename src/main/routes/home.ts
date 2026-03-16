@@ -1,7 +1,5 @@
-import { Application } from 'express';
+import { Application, Request, Response } from 'express';
 
 export default function (app: Application): void {
-  app.get('/', (req, res) => {
-    res.render('home');
-  });
+  app.get('/', (req: Request, res: Response) => res.render('home', {}));
 }

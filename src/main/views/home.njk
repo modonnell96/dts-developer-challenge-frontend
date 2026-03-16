@@ -1,5 +1,22 @@
 {% extends "template.njk" %}
 
+<!-- You may want to make further use of these components: https://design-system.service.gov.uk/components/
+but ultimately it is up to you -->
+
 {% block content %}
-  <h1 class="govuk-heading-xl">Default page template</h1>
+  <h1 class="govuk-heading-xl">Home</h1>
+
+  <!-- The freedom is yours. You can design the solution however you like, however there is a starting point provided
+  to ensure you have both services running. You may want to make use of the Gov UK Components:
+  https://design-system.service.gov.uk/components/ to add tabs and so forth :) -->
+
+
+<p class="govuk-body">Welcome to the task management system! Use this system to view tasks, filter by task ID, update task status, create and delete tasks.</p>
+<p class="govuk-body">
+  Click here to <a href="/tasks" class="govuk-link">view tasks</a>
+</p>
+<p class="govuk-body">
+  Click here to <a href="/tasks/create" class="govuk-link">create a new task</a>
+</p>
+
 {% endblock %}
