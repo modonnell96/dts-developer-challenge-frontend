@@ -62,7 +62,7 @@
             <td class="govuk-table__cell">
               <form method="post" action="/tasks/{{ task.id }}/status">
                 <select class="govuk-select govuk-!-margin-right-2" name="status" id="status-{{ task.id }}">
-                  <option value="TO_DO" {% if task.status == "TO_DO" %}selected{% endif %}>To do</option>
+                  <option value="TODO" {% if task.status == "TODO" %}selected{% endif %}>To do</option>
                   <option value="IN_PROGRESS" {% if task.status == "IN_PROGRESS" %}selected{% endif %}>In progress</option>
                   <option value="DONE" {% if task.status == "DONE" %}selected{% endif %}>Done</option>
                 </select>
