@@ -7,23 +7,29 @@
 
 {% block content %}
   <h1 class="govuk-heading-xl">View and filter tasks</h1>
+  <div class="govuk-grid-row govuk-!-margin-bottom-6">
+    <div class="govuk-grid-column-two-thirds">
+      <form method="GET" action="/tasks">
+        {{ govukInput({
+          label: {
+            text: "Please enter a task ID:"
+          },
+          id: "id",
+          name: "id",
+          value: searchId
+        }) }}
 
-  <form method="GET" action="/tasks" class="govuk-!-margin-bottom-6">
-    {{ govukInput({
-      label: {
-        text: "Please enter a task ID:"
-      },
-      id: "id",
-      name: "id",
-      value: searchId
-    }) }}
+        {{ govukButton({
+          text: "Filter by task ID",
+          classes: "govuk-button--secondary govuk-!-margin-right-2"
+        }) }}
 
-    {{ govukButton({
-      text: "Filter by task ID",
-      classes: "govuk-button--secondary"
-    }) }}
-
-  </form>
+        <a href="/tasks" class="govuk-button govuk-button--secondary" role="button">
+          Clear filter
+        </a>
+      </form>
+    </div>
+  </div>
 
   {% if error %}
     <p class="govuk-error-message">
@@ -35,11 +41,14 @@
     <table class="govuk-table">
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
-          <th scope="col" class="govuk-table__header">Task ID</th>
+          <th scope="col" class="govuk-table__header">ID</th>
           <th scope="col" class="govuk-table__header">Title</th>
           <th scope="col" class="govuk-table__header">Description</th>
           <th scope="col" class="govuk-table__header">Status</th>
           <th scope="col" class="govuk-table__header">Due Date</th>
+          <th scope="col" class="govuk-table__header">Update Task Status</th>
+          <th scope="col" class="govuk-table__header">Delete Task</th>
+
         </tr>
       </thead>
       <tbody class="govuk-table__body">
@@ -48,8 +57,30 @@
             <td class="govuk-table__cell">{{ task.id }}</td>
             <td class="govuk-table__cell">{{ task.title }}</td>
             <td class="govuk-table__cell">{{ task.description }}</td>
-            <td class="govuk-table__cell">{{ task.status }}</td>
-            <td class="govuk-table__cell">{{ task.dueDateTime }}</td>
+            <td class="govuk-table__cell">{{ task.statusLabel }} </td>
+            <td class="govuk-table__cell">{{ task.dueDateFormatted }}</td>
+            <td class="govuk-table__cell">
+              <form method="post" action="/tasks/{{ task.id }}/status">
+                <select class="govuk-select govuk-!-margin-right-2" name="status" id="status-{{ task.id }}">
+                  <option value="TO_DO" {% if task.status == "TO_DO" %}selected{% endif %}>To do</option>
+                  <option value="IN_PROGRESS" {% if task.status == "IN_PROGRESS" %}selected{% endif %}>In progress</option>
+                  <option value="DONE" {% if task.status == "DONE" %}selected{% endif %}>Done</option>
+                </select>
+
+                <button class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0" type="submit">
+                  Update
+                </button>
+              </form>
+            </td>
+            <td class="govuk-table__cell">
+              <form method="post" action="/tasks/{{ task.id }}/delete">
+                {{ govukButton({
+                  text: "Delete",
+                  classes: "govuk-button--warning govuk-!-margin-bottom-0"
+                }) }}
+              </form>
+            </td>
+
           </tr>
         {% endfor %}
       </tbody>
@@ -57,5 +88,8 @@
   {% else %}
     <p class="govuk-body">No tasks found.</p>
   {% endif %}
-  {{ govukExitThisPage() }}
+
+  <a href="/" class="govuk-button govuk-button--secondary" role="button">
+    Return to home
+  </a>
 {% endblock %}

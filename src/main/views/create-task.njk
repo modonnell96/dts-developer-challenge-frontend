@@ -2,12 +2,22 @@
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
-{% from "govuk/components/exit-this-page/macro.njk" import govukExitThisPage %}
-
 
 {% extends "template.njk" %}
 
 {% block content %}
+  {% if error %}
+    <div class="govuk-error-summary" role="alert">
+      <h2 class="govuk-error-summary__title">
+        There is a problem
+      </h2>
+      <div class="govuk-error-summary__body">
+        <ul class="govuk-list govuk-error-summary__list">
+          <li>{{ error }}</li>
+        </ul>
+      </div>
+    </div>
+  {% endif %}
   <h1 class="govuk-heading-xl">Create task</h1>
 
   <form method="POST" action="/tasks/create" class="form-task">
@@ -18,8 +28,11 @@
       label: {
         text: "Provide a task title"
       },
+      rows: "1",
       attributes: {
-        required: "true"
+        required: "true",
+        type: "text",
+        maxlength: "100"
       }
     }) }}
 
@@ -28,6 +41,11 @@
       id: "task-description",
       label: {
         text: "Provide a description of the task"
+      },
+      rows: "1",
+      attributes: {
+        type: "text",
+        maxlength: "300"
       }
     }) }}
 
@@ -39,7 +57,7 @@
       },
       items: [
         {
-          value: "TODO",
+          value: "TO_DO",
           text: "To do"
         },
         {
@@ -68,17 +86,35 @@
         {
           name: "day",
           classes: "govuk-input--width-2",
-          attributes: { required: "true" }
+          attributes: {
+            required: "true",
+            type: "number",
+            inputmode: "numeric",
+            min: "1",
+            max: "31"
+          }
         },
         {
           name: "month",
           classes: "govuk-input--width-2",
-          attributes: { required: "true" }
+          attributes: {
+            required: "true",
+            type: "number",
+            inputmode: "numeric",
+            min: "1",
+            max: "12"
+          }
         },
         {
           name: "year",
           classes: "govuk-input--width-4",
-          attributes: { required: "true" }
+          attributes: {
+            required: "true",
+            type: "number",
+            inputmode: "numeric",
+            min: "1900",
+            max: "2100"
+          }
         }
       ]
     }) }}
@@ -88,5 +124,8 @@
     }) }}
 
   </form>
-  {{ govukExitThisPage() }}
+
+  <a href="/" class="govuk-button govuk-button--secondary" role="button">
+    Return to home
+  </a>
 {% endblock %}
