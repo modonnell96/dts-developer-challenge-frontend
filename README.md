@@ -1,8 +1,20 @@
 # HMCTS Dev Test Frontend
 Please see [parent repository](https://github.com/modonnell96/hmcts-dts-developer-challenge) for in-depth README. For quick installation see below:
 
-Run this by running:
-1) `yarn install`
-2) `yarn webpack`
-3) `yarn start:dev` or navigate to package.json and run the script manually
+### Prerequisites
 
+- Java 21
+- Node.js (v18+ recommended)
+- Yarn
+- PostgreSQL or H2 (database configuration as described above)
+
+### Frontend Setup
+
+```bash
+git clone https://github.com/modonnell96/dts-developer-challenge-frontend
+cd dts-developer-challenge-frontend
+yarn install
+yarn start:dev
+```
+
+Runs on: `http://localhost:3010`
